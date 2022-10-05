@@ -1,4 +1,4 @@
-# :pushpin: Otus. Java Developer. Professional (september 2022 - now)
+# :pushpin: Java Developer. Professional (september 2022 - now)
 ## :bulb: Class 01
 ### New topics:
 - [x] Gradle
