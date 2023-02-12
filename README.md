@@ -9,7 +9,7 @@
 - [ ] hw15-patterns - Обработчик сообщений (patterns: creational / behavioral / structural)
 - [x] hw16-io - Обработчик json-ов
 - [x] hw18-jdbc - Самодельный ORM
-- [ ] hw21-hibernate - Использование Hibernate
+- [ ] hw21-hibernate-jpql - Использование Hibernate
 - [ ] hw22-cache - Свой cache engine
 - [ ] hw24-webserver - Веб сервер
 - [ ] hw25-di - Собственный IoC контейнер
