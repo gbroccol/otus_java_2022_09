@@ -12,15 +12,38 @@ import java.util.Optional;
 
 public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
 
-    private final Class<T> clazz;
+    private final String name;
+    private final Constructor<T> constructor;
+    private final Field idField;
+    private final List<Field> allFields;
+    private final List<Field> fieldsWithoutId;
 
-    public EntityClassMetaDataImpl(Class<T> clazz) { this.clazz = clazz; }
+    public EntityClassMetaDataImpl(Class<T> clazz) {
+        this.name = initName(clazz);
+        this.constructor = initConstructor(clazz);
+        this.idField = initIdField(clazz);
+        this.allFields = initAllFields(clazz);
+        this.fieldsWithoutId = initFieldsWithoutId(clazz);
+    }
 
     @Override
-    public String getName() { return clazz.getSimpleName(); }
+    public String getName() { return name; }
 
     @Override
-    public Constructor<T> getConstructor() {
+    public Constructor<T> getConstructor() { return constructor; }
+
+    @Override
+    public Field getIdField() { return idField; }
+
+    @Override
+    public List<Field> getAllFields() { return allFields; }
+
+    @Override
+    public List<Field> getFieldsWithoutId() { return fieldsWithoutId; }
+
+    public String initName(Class<T> clazz) { return clazz.getSimpleName(); }
+
+    private Constructor<T> initConstructor(Class<T> clazz) {
         try {
             return clazz.getDeclaredConstructor();
         } catch (NoSuchMethodException e) {
@@ -28,8 +51,7 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
         }
     }
 
-    @Override
-    public Field getIdField() {
+    private Field initIdField(Class<T> clazz) {
         Optional<Field> field = Arrays.stream(clazz.getDeclaredFields())
                 .filter(f -> f.isAnnotationPresent(Id.class))
                 .findFirst();
@@ -38,13 +60,11 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
         return field.get();
     }
 
-    @Override
-    public List<Field> getAllFields() {
+    private List<Field> initAllFields(Class<T> clazz) {
         return Arrays.stream(clazz.getDeclaredFields()).toList();
     }
 
-    @Override
-    public List<Field> getFieldsWithoutId() {
+    private List<Field> initFieldsWithoutId(Class<T> clazz) {
         return Arrays.stream(clazz.getDeclaredFields())
                 .filter(f -> !f.isAnnotationPresent(Id.class))
                 .toList();
