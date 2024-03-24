@@ -1,5 +1,4 @@
-# Java Developer. Professional (september 2022 - now)
-
+# Java Developer. Professional
 - [x] hw01-gradle - Проект gradle с модульной структурой
 - [x] hw04-generics - Применение коллекций
 - [x] hw06-annotations - Тестовый фреймворк
